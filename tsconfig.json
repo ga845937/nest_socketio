@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src/",
+        "paths": {
+            "@packageJson": ["../package.json"],
+            "@env": ["env"],
+            "@db/*": ["db/*"],
+            "@adapter/*": ["adapter/*"],
+            "@filter/*": ["filter/*"],
+            "@guard/*": ["guard/*"],
+            "@interceptor/*": ["interceptor/*"],
+            "@middleware/*": ["middleware/*"],
+            "@module/*": ["module/*"],
+            "@pipe/*": ["pipe/*"],
+            "@type/*": ["type/*"],
+            "@utility/*": ["utility/*"]
+        },
+        "target": "ES2022",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "lib": ["ES2022", "DOM"]
+    },
+    "include": ["src/**/*", "build/**/*", "migration/**/*"],
+    "exclude": ["node_modules"],
+    "ts-node": {
+        "files": true
+    }
+}
