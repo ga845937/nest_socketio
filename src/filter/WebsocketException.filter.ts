@@ -1,7 +1,8 @@
 import { Catch, ExceptionFilter, ArgumentsHost, HttpStatus } from "@nestjs/common";
-import { WsException } from "@nestjs/websockets";
 import { alsService } from "@utility/als";
 import { responseLog } from "@utility/logger";
+
+import { WebSocketException } from "./webSocket.exception";
 
 @Catch()
 export class WebsocketExceptionsFilter implements ExceptionFilter {
@@ -12,7 +13,7 @@ export class WebsocketExceptionsFilter implements ExceptionFilter {
         responseData.code = HttpStatus.INTERNAL_SERVER_ERROR;
         responseData.message = "server error";
 
-        if (exception instanceof WsException) {
+        if (exception instanceof WebSocketException) {
             if (exception.cause) {
                 alsData.requestError = exception.cause as Error;
             }

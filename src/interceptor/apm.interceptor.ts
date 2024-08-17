@@ -2,11 +2,9 @@ import type { NestInterceptor, ExecutionContext, CallHandler } from "@nestjs/com
 import type { IAlsData } from "@type/als";
 import type { EventName } from "@type/eventName";
 
-import { apmServerURL as serverUrl, nodeEnv } from "@env";
-import { Injectable } from "@nestjs/common";
-import { HttpStatus } from "@nestjs/common";
-import { name as serviceName } from "@packageJson";
+import { Injectable, HttpStatus } from "@nestjs/common";
 import { alsService } from "@utility/als";
+import { elasticAPM } from "@utility/apm";
 import elasticApmNode from "elastic-apm-node";
 import { Observable, Subscriber } from "rxjs";
 import { tap } from "rxjs/operators";
@@ -15,11 +13,7 @@ import { tap } from "rxjs/operators";
 export class APMInterceptor implements NestInterceptor {
     private readonly elasticApm: elasticApmNode.Agent;
     constructor() {
-        this.elasticApm = elasticApmNode.start({
-            serviceName,
-            serverUrl,
-            environment: nodeEnv
-        });
+        this.elasticApm = elasticAPM;
     }
 
     public intercept = (context: ExecutionContext, next: CallHandler): Observable<unknown> => {

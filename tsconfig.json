@@ -4,8 +4,8 @@
         "paths": {
             "@packageJson": ["../package.json"],
             "@env": ["env"],
-            "@db/*": ["db/*"],
             "@adapter/*": ["adapter/*"],
+            "@decorator/*": ["decorator/*"],
             "@filter/*": ["filter/*"],
             "@guard/*": ["guard/*"],
             "@interceptor/*": ["interceptor/*"],

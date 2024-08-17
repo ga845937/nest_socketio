@@ -1,7 +1,7 @@
 import type { ValidationError } from "@nestjs/common";
 
+import { WebSocketException } from "@filter/webSocket.exception";
 import { Injectable, ValidationPipe, HttpStatus } from "@nestjs/common";
-import { WsException } from "@nestjs/websockets";
 import { validate } from "class-validator";
 
 const getAllConstraints = (error: ValidationError[]): string[] => {
@@ -26,12 +26,8 @@ const getAllConstraints = (error: ValidationError[]): string[] => {
 export class Validator extends ValidationPipe {
     constructor() {
         super({
-            exceptionFactory: (error: ValidationError[]): unknown => {
-                const wsException = new WsException(getAllConstraints(error).toString());
-                wsException.code = HttpStatus.UNPROCESSABLE_ENTITY;
-
-                return wsException;
-            },
+            exceptionFactory: (error: ValidationError[]) =>
+                new WebSocketException(HttpStatus.UNPROCESSABLE_ENTITY, getAllConstraints(error).toString()),
         });
     }
 
