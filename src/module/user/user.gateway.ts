@@ -1,8 +1,9 @@
+import { WebSocketCode } from "@decorator/websocketCode.decorator";
 import { WebsocketExceptionsFilter } from "@filter/WebsocketException.filter";
 import { APMInterceptor } from "@interceptor/apm.interceptor";
 import { LoggerInterceptor } from "@interceptor/logger.interceptor";
 import { ResponseTransformInterceptor } from "@interceptor/responseTransform.interceptor";
-import { UseFilters, UseInterceptors, UsePipes } from "@nestjs/common";
+import { UseFilters, UseInterceptors, UsePipes, HttpStatus } from "@nestjs/common";
 import {
     WebSocketGateway,
     OnGatewayConnection,
@@ -36,6 +37,7 @@ export class UserGateway implements OnGatewayConnection {
     }
 
     @SubscribeMessage(UserEvent.ReadUser)
+    @WebSocketCode(HttpStatus.OK)
     public async readUser(
         @ConnectedSocket() socket: Socket,
         @MessageBody() data: ReadUserRequest
