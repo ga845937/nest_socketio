@@ -1,5 +1,5 @@
+import { WebSocketException } from "@filter/webSocket.exception";
 import { Injectable, HttpStatus } from "@nestjs/common";
-import { WsException } from "@nestjs/websockets";
 
 import { ReadUserRequest, IReadUserResponse } from "../user.type";
 
@@ -17,10 +17,7 @@ export class UserService {
         }
 
         if (response.name === "2") {
-            const wsException = new WsException("Not Found Error message");
-            wsException.code = HttpStatus.NOT_FOUND;
-            wsException.cause = new Error("Not Found");
-            throw wsException;
+            throw new WebSocketException(HttpStatus.BAD_REQUEST, "Bad Request Error message");
         }
 
         return response;
