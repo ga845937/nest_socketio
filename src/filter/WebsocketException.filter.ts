@@ -1,6 +1,7 @@
 import { Catch, ExceptionFilter, ArgumentsHost, HttpStatus } from "@nestjs/common";
 import { alsService } from "@utility/als";
 import { responseLog } from "@utility/logger";
+import { Socket } from "socket.io";
 
 import { WebSocketException } from "./webSocket.exception";
 
@@ -30,10 +31,8 @@ export class WebsocketExceptionsFilter implements ExceptionFilter {
 
         responseLog(alsData);
 
-        const callback = host.getArgByIndex(2) as unknown;
-        if (callback && typeof callback === "function") {
-            alsData.apmTransaction.end();
-            callback(responseData);
-        }
+        alsData.apmTransaction.end();
+        const socket = host.switchToWs().getClient<Socket>();
+        socket.emit(alsData.event, responseData);
     }
 }

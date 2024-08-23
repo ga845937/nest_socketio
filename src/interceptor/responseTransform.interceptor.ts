@@ -17,7 +17,10 @@ export class ResponseTransformInterceptor implements NestInterceptor {
                     const alsData = alsService.getStore();
                     alsData.responseData.data = data;
                     alsData.responseData.code = webSocketCode;
-                    return alsData.responseData;
+                    return {
+                        event: alsData.event,
+                        data: alsData.responseData,
+                    };
                 })
             ).subscribe(observer);
         });
