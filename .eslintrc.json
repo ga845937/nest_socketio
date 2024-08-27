@@ -114,7 +114,11 @@
                         }
                     },
                     {
-                        "selector": ["typeLike", "enumMember"],
+                        "selector": "enumMember",
+                        "format": ["UPPER_CASE"]
+                    },
+                    {
+                        "selector": "typeLike",
                         "format": ["PascalCase"]
                     },
                     {
